@@ -1,5 +1,57 @@
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    display: grid;
+    /* background-color: #d1fae5; */
+    background-image: url(./photo/rps/pexels-elīna-arāja-3400795.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: repeat(3, 1fr);
+}
+
 .navbar.fixed-top.navbar-light {
     background-color: #bae6fd;
     justify-content: center;
     border-bottom: 1px solid #7dd3fc;
+}
+
+#intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #dddddd;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 10px 5px 5px lightgray;
+    opacity: 1;
+    grid-row: 2/3;
+}
+
+#jumbo-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#intro-btn {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
 }
