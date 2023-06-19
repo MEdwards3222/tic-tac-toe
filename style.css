@@ -6,11 +6,11 @@ html {
 
 body {
     display: grid;
-    /* background-color: #d1fae5; */
-    background-image: url(./photo/rps/pexels-elīna-arāja-3400795.jpg);
+    background-color: #d1fae5;
+   /*  background-image: url(./photo/rps/pexels-elīna-arāja-3400795.jpg);
     background-size: 100%;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center; */
     height: 100%;
     width: 100%;
     grid-template-rows: repeat(3, 1fr);
