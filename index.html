@@ -15,21 +15,51 @@
         </nav>
     </div>
 
-    
-    <div class="container" id="intro" >
-        <div class="jumbotron" id="jumbo-intro">
-            <h1 class="display-4" hidden>Tic-tac-toe!</h1>
-            <h5 class="lead" hidden>No matter the culture, it's the classic game known the world over!</p>
-                <p>Play with a friend or against the AI! Pick either a X or a O and drag your card onto the grid. Get three in a row and you win!</p>
+    <main>
+        <div class="container" id="intro" hidden>
+            <div class="jumbotron" id="jumbo-intro">
+                <h1 class="display-4">Tic-tac-toe!</h1>
+                <h5 class="lead">No matter the culture, it's the classic game known the world over!</p>
+                    <p>Play with a friend or against the AI! Pick either a X or a O and drag your card onto the grid. Get three in a row and you win!</p>
+                </div>
+                
+                <div class="container" id="intro-btn">
+                    <button type="button" class="btn btn-primary">Play with a friend</button>
+                    <button type="button" class="btn btn-primary">Play with the AI</button>
+                </div>
+        </div>
+
+        <div class="container" id="game">
+            <div class="container" id="grid-area">
+                grid
             </div>
-            
-            <div class="container" id="intro-btn" hidden>
-                <button type="button" class="btn btn-primary">Play with a friend</button>
-                <button type="button" class="btn btn-primary">Play with the AI</button>
+
+            <div class="container" id="game-cards">
+                
+                <div class="card-cross">
+                    <h6>Player 1</h6>
+                    <div class="card text-center" id="card-cross">
+                        <div class="card-body" id="card-body-cross">
+                            <div class="card-text">
+                                <i class="fa-solid fa-x fa-2xl" style="color: #2b95ff;" id="blue-cross"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-circle">
+                    <h6>Player 2</h6>
+                    <div class="card text-center" id="card-circle">
+                        <div class="card-body" id="card-body-circle">
+                            <div class="card-text">
+                                <i class="fa-solid fa-o fa-2xl" style="color: #d50000;" id="red-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        
+    </main>
     
     
     <script src="./bootstrap/node_modules/bootstrap/dist/js/bootstrap.js"></script>

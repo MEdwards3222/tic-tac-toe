@@ -5,15 +5,29 @@ html {
 }
 
 body {
-    display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #d1fae5;
    /*  background-image: url(./photo/rps/pexels-elīna-arāja-3400795.jpg);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center; */
-    height: 100%;
-    width: 100%;
-    grid-template-rows: repeat(3, 1fr);
+    height: 100vh;
+    width: 100vw;
+    /* grid-template-rows: repeat(3, 1fr); */
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: .1fr 2fr .1fr; 
+    height: 75vh;
+    width: 75vw;
+    background-color: #dddddd;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 10px 5px 5px lightgray;
 }
 
 .navbar.fixed-top.navbar-light {
@@ -26,12 +40,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #dddddd;
-    border-radius: 20px;
-    border: 1px solid lightgray;
-    box-shadow: 10px 5px 5px lightgray;
     opacity: 1;
-    grid-row: 2/3;
+    grid-column: 2/3;
 }
 
 #jumbo-intro {
@@ -39,6 +49,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    
 }
 
 #intro-btn {
@@ -48,10 +59,68 @@ body {
     margin-top: 1rem;
 }
 
-#bg-video {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
+#game {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-column: 2/3; */
+
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-column: 2/3;
+    grid-row: 2/3;
+   
+}
+
+#grid-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    border: 1px solid black;
+}
+
+#game-cards {
+    display: flex;
+    flex-direction: row;
+    height: 10rem;
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#card-body-circle { /*ID used to override default bootstrap*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+#card-body-cross {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+h6 {
+    text-align: center;
+}
+
+.fa-solid.fa-x.fa-2xl {
+    font-size: 5em;
+    margin-top: 1rem;
+}
+.fa-solid.fa-o.fa-2xl {
+    font-size: 5em;
+    margin-top: 1rem;
 }
