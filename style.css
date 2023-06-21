@@ -30,6 +30,19 @@ main {
     box-shadow: 10px 5px 5px lightgray;
 }
 
+h6 {
+    text-align: center;
+}
+
+.fa-solid.fa-x.fa-2xl {
+    font-size: 5em;
+    margin-top: 1rem;
+}
+.fa-solid.fa-o.fa-2xl {
+    font-size: 5em;
+    margin-top: 1rem;
+}
+
 .navbar.fixed-top.navbar-light {
     background-color: #bae6fd;
     justify-content: center;
@@ -70,14 +83,27 @@ main {
     grid-template-rows: 1fr 1fr;
     grid-column: 2/3;
     grid-row: 2/3;
-   
 }
+
 
 #grid-area {
     display: grid;
+    justify-items: center;
+    align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    border: 1px solid black;
+    border: 1px solid #9ca3af;
+    background-color: #9ca3af;
+    gap: 1px;
+}
+
+.grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: #e5e5e5;
 }
 
 #game-cards {
@@ -112,15 +138,12 @@ main {
     padding-right: 2rem;
 }
 
-h6 {
-    text-align: center;
+#circle-btn {
+    border: none;
 }
 
-.fa-solid.fa-x.fa-2xl {
-    font-size: 5em;
-    margin-top: 1rem;
+#cross-btn {
+    border: none;
 }
-.fa-solid.fa-o.fa-2xl {
-    font-size: 5em;
-    margin-top: 1rem;
-}
+
+
