@@ -110,6 +110,14 @@ h6 {
     background-color: #e5e5e5;
 }
 
+.grid-item:hover {
+    background-color: #bae6fd;
+}
+
+.grid-item:active {
+    background-color: #7dd3fc;
+}
+
 #game-cards {
     display: flex;
     flex-direction: row;
