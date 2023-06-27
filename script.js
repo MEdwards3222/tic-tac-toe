@@ -1,3 +1,6 @@
+let gameGrid = document.getElementById("grid-area");
+
+
 const Grid = (() => {   //module pattern - only one grid
     let row1 = ["", "", ""];
     let row2 = ["", "", ""];
