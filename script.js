@@ -6,19 +6,42 @@ const Grid = (() => {   //module pattern - only one grid
     let row2 = ["", "", ""];
     let row3 = ["", "", ""]; */
 
-    gameGrid = ["", "", "", "", "", "", "", "", ""];
-    gameGrid[0] = document.getElementById("1-1").textContent; //This is gonna be repetitive - look for ways to make this more efficient
-    gameGrid[1] = document.getElementById("1-2").textContent;
-    gameGrid[2] = document.getElementById("1-3").textContent;
-    gameGrid[3] = document.getElementById("2-1").textContent;
-    gameGrid[4] = document.getElementById("2-2").textContent;
-    gameGrid[5] = document.getElementById("2-3").textContent;
-    gameGrid[6] = document.getElementById("3-1").textContent;
-    gameGrid[7] = document.getElementById("3-2").textContent;
-    gameGrid[8] = document.getElementById("3-3").textContent;
+    let square1 = document.getElementById("1-1");
+    let square2 = document.getElementById("1-2");
+    let square3 = document.getElementById("1-3");
+    let square4 = document.getElementById("2-1");
+    let square5 = document.getElementById("2-2");
+    let square6 = document.getElementById("2-3");
+    let square7 = document.getElementById("3-1");
+    let square8 = document.getElementById("3-2");
+    let square9 = document.getElementById("3-3");
 
-    return { //consider creating getter
-        gameGrid
+
+    gameGrid = ["", "", "", "", "", "", "", "", ""];
+    gameGrid[0] = square1; //This is gonna be repetitive - look for ways to make this more efficient
+    gameGrid[1] = square2;
+    gameGrid[2] = square3;
+    gameGrid[3] = square4;
+    gameGrid[4] = square5;
+    gameGrid[5] = square6;
+    gameGrid[6] = square7;
+    gameGrid[7] = square8;
+    gameGrid[8] = square9;
+
+  
+   
+
+    return { //consider creating getter/setters
+        gameGrid,
+        square1,
+        square2,
+        square3,
+        square4,
+        square5,
+        square6,
+        square7,
+        square8,
+        square9
     };
 })();
 
@@ -50,12 +73,16 @@ const Game = (() => { //module pattern - only one grid
                 break;
         }
 
-        checkWin();
+        checkWin(); //return true/false
+    }
+
+    const roundAction = () => {
+        return console.log("clicked!");
     }
 
     const checkWin = () => {
         //TODO - returns True or False upon checking winning combinations
-        console.log(Grid.gameGrid[0]);
+        console.log(Grid.gameGrid[0].textContent);
         return false;
     }
 
@@ -81,9 +108,13 @@ const Game = (() => { //module pattern - only one grid
        player1.setSign("X"); //Player 1 will always be X
        player2.setSign("O"); //Player 2 will always be O
     
-       playRound(player1.getSign());
+
+       playRound(player1.getSign()); //do...while loop checking win condition - alternate between players
        
     }
+
+    //event listeners
+    Grid.square1.addEventListener("click", roundAction);
 
     return {
         startGame
