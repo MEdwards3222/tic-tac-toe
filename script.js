@@ -43,10 +43,14 @@ const Game = (() => { //module pattern - only one grid
 
     let turn = 1;
     let gameOver = false;
+    let player1Name = "John Doe";
+    let player2Name = "Jane Doe";
 
-    /* const roundAction = (player) => {
-        console.log(`${player.getName()} clicked!`);
-    } */
+    let playGrid = document.querySelectorAll(".grid-item");
+
+     const roundAction = () => {
+        console.log("clicked!");
+    } 
 
     const playRound = (player) => {
         switch(player.getSign()){
@@ -81,14 +85,16 @@ const Game = (() => { //module pattern - only one grid
     }
 
     const startGame = () => {
-       let player1Name = "John Doe";
-       let player2Name = "Jane Doe";
-
+       
        const player1 = Player(player1Name);
        const player2 = Player(player2Name);
 
        player1.setSign("X"); //Player 1 will always be X
        player2.setSign("O"); //Player 2 will always be O
+
+       playGrid.forEach(box => {
+        box.addEventListener("click", roundAction);
+       })
     
 
        playRound(player1); //do...while loop checking win condition - alternate between players
