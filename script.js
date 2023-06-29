@@ -67,8 +67,18 @@ const roundAction = function() {
    const x = +this.dataset.x;
    const y = +this.dataset.y;
 
-   console.log("clicked!");
-   console.log(`${x}, ${y}`);
+  /*  console.log("clicked!");
+   console.log(`${x}, ${y}`); */
+
+   if (isPlayerOneTurn()) { 
+    Grid.setGridVal(x, y, "X");
+    this.textContent = "X";
+    turn++;
+} else {
+    Grid.setGridVal(x, y, "O");
+    this.textContent = "O";
+    turn++;
+}
 } 
 
     const isPlayerOneTurn = () => {
