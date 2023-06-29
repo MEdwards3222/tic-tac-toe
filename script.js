@@ -17,8 +17,22 @@ const Grid = (() => {   //module pattern - only one grid
     let square9 = document.getElementById("3-3");
 
 
-    gameGrid = ["", "", "", "", "", "", "", "", ""];
-    gameGrid[0] = square1; //This is gonna be repetitive - look for ways to make this more efficient
+    gameGrid = [["", "", ""], ["", "", ""], ["", "", ""]];
+
+    const getGrid = () => {
+        return gameGrid;
+    }
+
+    const resetGrid = () => {
+        gameGrid = [["", "", ""], ["", "", ""], ["", "", ""]];
+    }
+
+    const setGridVal = (i, j, val) => {
+        gameGrid[i][j] = val;
+    }
+
+
+   /*  gameGrid[0] = square1; //This is gonna be repetitive - look for ways to make this more efficient...maybe for each?
     gameGrid[1] = square2;
     gameGrid[2] = square3;
     gameGrid[3] = square4;
@@ -26,22 +40,16 @@ const Grid = (() => {   //module pattern - only one grid
     gameGrid[5] = square6;
     gameGrid[6] = square7;
     gameGrid[7] = square8;
-    gameGrid[8] = square9;
+    gameGrid[8] = square9; */
 
   
    
 
     return { //consider creating getter/setters
         gameGrid,
-        square1,
-        square2,
-        square3,
-        square4,
-        square5,
-        square6,
-        square7,
-        square8,
-        square9
+        getGrid,
+        resetGrid,
+        setGridVal
     };
 })();
 
@@ -62,8 +70,12 @@ const Player = (name) => { //factory function - multiple players
 
 const Game = (() => { //module pattern - only one grid
 
-    const playRound = (sign) => {
-        switch(sign){
+    /* const roundAction = (player) => {
+        console.log(`${player.getName()} clicked!`);
+    } */
+
+    const playRound = (player) => {
+        switch(player.getSign()){
             case "X":
                 console.log("Player 1's turn!");
                 break;
@@ -76,13 +88,9 @@ const Game = (() => { //module pattern - only one grid
         checkWin(); //return true/false
     }
 
-    const roundAction = () => {
-        return console.log("clicked!");
-    }
 
     const checkWin = () => {
         //TODO - returns True or False upon checking winning combinations
-        console.log(Grid.gameGrid[0].textContent);
         return false;
     }
 
@@ -109,12 +117,11 @@ const Game = (() => { //module pattern - only one grid
        player2.setSign("O"); //Player 2 will always be O
     
 
-       playRound(player1.getSign()); //do...while loop checking win condition - alternate between players
+       playRound(player1); //do...while loop checking win condition - alternate between players
        
     }
 
-    //event listeners
-    Grid.square1.addEventListener("click", roundAction);
+   
 
     return {
         startGame
