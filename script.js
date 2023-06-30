@@ -34,7 +34,7 @@ const Player = (name) => { //factory function - multiple players
 
     const getSign = () => {return sign;}
 
-    const getName = () => console.log(name);
+    const getName = () => {return name;}
 
     return {setSign, getSign, getName};
 }
@@ -45,6 +45,8 @@ const Game = (() => { //module pattern - only one grid
     let gameOver = false;
     let player1Name = "John Doe";
     let player2Name = "Jane Doe";
+    let player1;
+    let player2;
 
     let playGrid = document.querySelectorAll(".grid-item");
     let textBox = document.getElementById("text-box");
@@ -52,8 +54,8 @@ const Game = (() => { //module pattern - only one grid
     
     const initGame = () => {
         
-        const player1 = Player(player1Name);
-        const player2 = Player(player2Name);
+        player1 = Player(player1Name);
+        player2 = Player(player2Name);
 
         player1.setSign("X"); //Player 1 will always be X
         player2.setSign("O"); //Player 2 will always be O
@@ -70,6 +72,8 @@ const roundAction = function() { //Had to change this from an arrow function to 
 
   /*  console.log("clicked!");
    console.log(`${x}, ${y}`); */
+
+   
 
    if (isPlayerOneTurn()) { 
         Grid.setGridVal(x, y, "X");
@@ -125,7 +129,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
 
     const declareWinner = (sign) => {
         if (sign === "X") {
-            console.log("X Wins!"); //console log temp
+            displayWinner(player1);
             gameOver === true;
         } else if (sign === "O") {
             console.log("O Wins!");
@@ -136,7 +140,9 @@ const roundAction = function() { //Had to change this from an arrow function to 
         }
     }
 
-    
+    const displayWinner = (player) => {
+        textBox.textContent = `${player.getName()} is the winner!`
+    }
 
     const getScore = () => {
         //TODO
