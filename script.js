@@ -47,6 +47,7 @@ const Game = (() => { //module pattern - only one grid
     let player2Name = "Jane Doe";
 
     let playGrid = document.querySelectorAll(".grid-item");
+    let textBox = document.getElementById("text-box");
 
     
     const initGame = () => {
@@ -86,7 +87,15 @@ const roundAction = function() { //Had to change this from an arrow function to 
 } 
 
     const isPlayerOneTurn = () => {
-        return (turn % 2 === 1); //Odd numbered turns (1 - true) = player 1, Even numbered turns (0 - false) = player 2
+        if (turn % 2 === 1) {
+            console.log(`Turn number: ${turn}`);
+            textBox.textContent = "Player 2's turn";
+        } else {
+            console.log(`Turn number: ${turn}`);
+            textBox.textContent = "Player 1's turn";
+        }
+
+        return (turn % 2 === 1); 
     }
 
     const playRound = (player) => {
