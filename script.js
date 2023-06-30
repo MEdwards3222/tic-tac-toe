@@ -71,14 +71,18 @@ const roundAction = function() { //Had to change this from an arrow function to 
    console.log(`${x}, ${y}`); */
 
    if (isPlayerOneTurn()) { 
-    Grid.setGridVal(x, y, "X");
-    this.textContent = "X";
-    turn++;
-} else {
-    Grid.setGridVal(x, y, "O");
-    this.textContent = "O";
-    turn++;
-}
+        Grid.setGridVal(x, y, "X");
+        this.textContent = "X";
+        let winSign = checkWin(Grid.getGrid());
+        declareWinner(winSign);
+        turn++;
+    } else {
+        Grid.setGridVal(x, y, "O");
+        this.textContent = "O";
+        let winSign = checkWin(Grid.getGrid());
+        declareWinner(winSign);
+        turn++;
+    }
 } 
 
     const isPlayerOneTurn = () => {
@@ -86,17 +90,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
     }
 
     const playRound = (player) => {
-        switch(player.getSign()){
-            case "X":
-                console.log("Player 1's turn!");
-                break;
-            
-            case "O":
-                console.log("Player 2's turn!");
-                break;
-        }
-
-        checkWin(); //return true/false
+       
     }
 
 
@@ -118,11 +112,19 @@ const roundAction = function() { //Had to change this from an arrow function to 
         if(turn === 9 & gameOver === false) {
             return "tie"
         } 
-        return false;
     }
 
-    const declareWinner = () => {
-        //TODO
+    const declareWinner = (sign) => {
+        if (sign === "X") {
+            console.log("X Wins!"); //console log temp
+            gameOver === true;
+        } else if (sign === "O") {
+            console.log("O Wins!");
+            gameOver === true;
+        } else if (sign === "tie") {
+            console.log("Tie!");
+            gameOver === true;
+        }
     }
 
     
