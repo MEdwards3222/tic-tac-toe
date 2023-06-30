@@ -118,6 +118,45 @@ h6 {
     background-color: #7dd3fc;
 }
 
+.grid-item.disabled-blue {
+    /* border: 1px solid #e5e7eb; */
+    background-color: #bfdbfe;
+}
+
+.grid-item.disabled-blue:active {
+    background-color: #bfdbfe;
+}
+
+.grid-item.disabled-blue:hover {
+    background-color: #bfdbfe;
+}
+
+.grid-item.disabled-red {
+    /* border: 1px solid #e5e7eb; */
+    background-color: #fecaca;
+}
+
+.grid-item.disabled-red:active {
+    background-color: #fecaca;
+}
+
+.grid-item.disabled-red:hover {
+    background-color: #fecaca;
+}
+
+.grid-item.disabled {
+    /* border: 1px solid #e5e7eb; */
+    background-color: #d1d5db;
+}
+
+.grid-item.disabled:active {
+    background-color: #d1d5db;
+}
+
+.grid-item.disabled:hover {
+    background-color: #d1d5db;
+}
+
 #game-cards {
     display: flex;
     flex-direction: row;
@@ -160,4 +199,8 @@ h6 {
 
 #text-content {
     text-align: center;
+}
+
+#reset-game {
+    visibility: hidden;
 }

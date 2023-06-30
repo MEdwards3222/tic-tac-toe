@@ -110,7 +110,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
     const checkWin = (gridLayout) => {
         for(let i = 0; i < 3; i++) { //Checks for vertical/horizontal win condition
             if (gridLayout[0][i] === gridLayout[1][i] & gridLayout[0][i] === gridLayout[2][i]) {
-                return gridLayout[i][0];
+                return gridLayout[0][i];
             } else if (gridLayout[i][0] === gridLayout[i][1] & gridLayout[i][0] === gridLayout[i][2]) {
                 return gridLayout[i][0];
             }
@@ -131,12 +131,24 @@ const roundAction = function() { //Had to change this from an arrow function to 
         if (sign === "X") {
             displayWinner(player1);
             gameOver === true;
+            playGrid.forEach(box => {
+                box.removeEventListener("click", roundAction);
+                box.className += " disabled-blue";
+            });
         } else if (sign === "O") {
-            console.log("O Wins!");
+            displayWinner(player2);
             gameOver === true;
+            playGrid.forEach(box => {
+                box.removeEventListener("click", roundAction);
+                box.className += " disabled-red";
+            });
         } else if (sign === "tie") {
-            console.log("Tie!");
+            displayTie();
             gameOver === true;
+            playGrid.forEach(box => {
+                box.removeEventListener("click", roundAction);
+                box.className += " disabled";
+            });
         }
     }
 
@@ -144,13 +156,10 @@ const roundAction = function() { //Had to change this from an arrow function to 
         textBox.textContent = `${player.getName()} is the winner!`
     }
 
-    const getScore = () => {
-        //TODO
+    const displayTie = () => {
+        textBox.textContent = `It's a tie.`
     }
 
-    const setScore = () => {
-        //TODO
-    }
 
 
    
