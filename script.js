@@ -50,6 +50,7 @@ const Game = (() => { //module pattern - only one grid
 
     let playGrid = document.querySelectorAll(".grid-item");
     let textBox = document.getElementById("text-box");
+    let resetBtn = document.getElementById("reset-game");
 
     
     const initGame = () => {
@@ -61,9 +62,11 @@ const Game = (() => { //module pattern - only one grid
         player2.setSign("O"); //Player 2 will always be O
         
         playGrid.forEach(box => {
-        box.addEventListener("click", roundAction);
-    });
-    //playRound(player1); //do...while loop checking win condition - alternate between players
+             box.addEventListener("click", roundAction);
+        });
+        
+        textBox.textContent = "Player 1's turn.";
+        hideResetBtn();
 }
 
 const roundAction = function() { //Had to change this from an arrow function to an anon function to retain "this" object
@@ -93,17 +96,13 @@ const roundAction = function() { //Had to change this from an arrow function to 
     const isPlayerOneTurn = () => {
         if (turn % 2 === 1) {
             console.log(`Turn number: ${turn}`);
-            textBox.textContent = "Player 2's turn";
+            textBox.textContent = "Player 2's turn.";
         } else {
             console.log(`Turn number: ${turn}`);
-            textBox.textContent = "Player 1's turn";
+            textBox.textContent = "Player 1's turn.";
         }
 
         return (turn % 2 === 1); 
-    }
-
-    const playRound = (player) => {
-       
     }
 
 
@@ -134,6 +133,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
             playGrid.forEach(box => {
                 box.removeEventListener("click", roundAction);
                 box.className += " disabled-blue";
+                showResetBtn();
             });
         } else if (sign === "O") {
             displayWinner(player2);
@@ -141,6 +141,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
             playGrid.forEach(box => {
                 box.removeEventListener("click", roundAction);
                 box.className += " disabled-red";
+                showResetBtn();
             });
         } else if (sign === "tie") {
             displayTie();
@@ -148,6 +149,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
             playGrid.forEach(box => {
                 box.removeEventListener("click", roundAction);
                 box.className += " disabled";
+                showResetBtn();
             });
         }
     }
@@ -160,7 +162,33 @@ const roundAction = function() { //Had to change this from an arrow function to 
         textBox.textContent = `It's a tie.`
     }
 
+    const resetGame = () => {
+        turn = 1;
+        gameOver === false;
 
+        Grid.resetGrid();
+        clearGrid();
+        textBox.textContent = "Player 1's turn."
+        initGame();
+    }
+
+    const clearGrid = () => {
+        playGrid.forEach(box => {
+            box.textContent = "";
+            box.className = "grid-item";
+        });
+    }
+
+    const showResetBtn = () => {
+        resetBtn.disabled = false;
+        resetBtn.style.visibility = 'visible';
+        resetBtn.addEventListener("click", resetGame);
+    }
+
+    const hideResetBtn = () => {
+        resetBtn.disabled = true;
+        resetBtn.style.visibility = 'hidden';
+    }
 
    
 
