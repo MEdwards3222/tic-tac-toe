@@ -41,8 +41,8 @@ const Game = (() => { //module pattern - only one grid
 
     let turn = 1;
     let gameOver = false;
-    let player1Name = "John Doe";
-    let player2Name = "Jane Doe";
+    let player1Name = "Player 1"; //Scrapped functionality to have players use custom name - better for UX to have users just jump into tic tac toe
+    let player2Name = "Player 2";
     let player1;
     let player2;
 
@@ -182,6 +182,15 @@ const roundAction = function() { //Had to change this from an arrow function to 
         initGame();
     }
 
+    const reinitGame = () => {
+        turn = 1;
+        gameOver === false;
+
+        Grid.resetGrid();
+        clearGrid();
+        textBox.textContent = "Player 1's turn."
+    }
+
     const clearGrid = () => {
         playGrid.forEach(box => {
             box.textContent = "";
@@ -205,6 +214,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
     const displaySplash = () => {
         gameDisplay.hidden = true;
         Splash.welcome();
+        reinitGame();
     }
 
     const highlightCross = () => {
