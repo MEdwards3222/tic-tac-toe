@@ -17,7 +17,7 @@
     </div>
 
     <main>
-        <div class="container" id="intro" hidden>
+        <div class="container" id="intro">
             <div class="jumbotron" id="jumbo-intro">
                 <h1 class="display-4">Tic-tac-toe!</h1>
                 <h5 class="lead">No matter the culture, it's the classic game known the world over!</p>
@@ -25,12 +25,12 @@
                 </div>
                 
                 <div class="container" id="intro-btn">
-                    <button type="button" class="btn btn-primary">Play with a friend</button>
-                    <button type="button" class="btn btn-primary">Play with the AI</button>
+                    <button type="button" class="btn btn-primary" id="play-human">Play with a friend</button>
+                    <button type="button" class="btn btn-primary" id="play-ai">Play with the AI</button>
                 </div>
         </div>
 
-        <div class="container" id="game">
+        <div class="container" id="game" hidden>
             <div class="container" id="grid-area">
                 <div class="grid-item" data-x="0" data-y="0"></div>
                 <div class="grid-item" data-x="0" data-y="1"></div>
@@ -47,7 +47,7 @@
                 
                 <div class="card-cross">
                     <h6>Player 1</h6>
-                    <button id="cross-btn">
+                    <div class="cross-indicator">
                         <div class="card text-center" id="card-cross">
                             <div class="card-body" id="card-body-cross">
                                 <div class="card-text">
@@ -55,12 +55,12 @@
                                 </div>
                             </div>
                         </div>
-                    </button>
+                    </div>
                 </div>
 
                 <div class="card-circle">
                     <h6>Player 2</h6>
-                    <button id="circle-btn">
+                    <div class="circle-indicator">
                         <div class="card text-center" id="card-circle">
                             <div class="card-body" id="card-body-circle">
                                 <div class="card-text">
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                         </div>
-                    </button>
+                    </div>
                 </div>
             </div>
 
@@ -76,7 +76,10 @@
                 <h5 id="text-box">I'm just a funny lil' guy.</h5>
             </div>
 
-            <button class="btn btn-primary" id="reset-game">Reset Game</button>
+            <div class="container" id="screen-options">
+                <button class="btn btn-primary" id="return-to-splash">Return to Welcome Screen</button>
+                <button class="btn btn-primary" id="reset-game">Reset Game</button>
+            </div>
         </div>
     </main>
     

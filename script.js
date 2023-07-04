@@ -1,7 +1,5 @@
-let gameGrid = document.getElementById("grid-area");
-
-
 const Grid = (() => {   //module pattern - only one grid
+    let gameGrid = document.getElementById("grid-area");
     gameGrid = [["", "", ""], ["", "", ""], ["", "", ""]];
 
     const getGrid = () => {
@@ -51,10 +49,16 @@ const Game = (() => { //module pattern - only one grid
     let playGrid = document.querySelectorAll(".grid-item");
     let textBox = document.getElementById("text-box");
     let resetBtn = document.getElementById("reset-game");
+    let gameDisplay = document.getElementById("game");
+    let splashBtn = document.getElementById("return-to-splash");
+    let crossIndicator = document.getElementById("card-body-cross");
+    let circleIndicator = document.getElementById("card-body-circle");
 
     
     const initGame = () => {
-        
+        gameDisplay.hidden = false;
+
+
         player1 = Player(player1Name);
         player2 = Player(player2Name);
 
@@ -66,7 +70,10 @@ const Game = (() => { //module pattern - only one grid
         });
         
         textBox.textContent = "Player 1's turn.";
+        highlightCross();
         hideResetBtn();
+
+        splashBtn.addEventListener("click", displaySplash);
 }
 
 const roundAction = function() { //Had to change this from an arrow function to an anon function to retain "this" object
@@ -91,9 +98,11 @@ const roundAction = function() { //Had to change this from an arrow function to 
     const isPlayerOneTurn = () => {
         if (turn % 2 === 1) {
             console.log(`Turn number: ${turn}`);
+            highlightCircle();
             textBox.textContent = "Player 2's turn.";
         } else {
             console.log(`Turn number: ${turn}`);
+            highlightCross();
             textBox.textContent = "Player 1's turn.";
         }
 
@@ -124,6 +133,8 @@ const roundAction = function() { //Had to change this from an arrow function to 
     const declareWinner = (sign) => {
         if (sign === "X") {
             displayWinner(player1);
+            highlightCross();
+            greyOutCircle();
             gameOver === true;
             playGrid.forEach(box => {
                 box.removeEventListener("click", roundAction);
@@ -132,6 +143,8 @@ const roundAction = function() { //Had to change this from an arrow function to 
             });
         } else if (sign === "O") {
             displayWinner(player2);
+            highlightCircle();
+            greyOutCross();
             gameOver === true;
             playGrid.forEach(box => {
                 box.removeEventListener("click", roundAction);
@@ -140,6 +153,8 @@ const roundAction = function() { //Had to change this from an arrow function to 
             });
         } else if (sign === "tie") {
             displayTie();
+            greyOutCircle();
+            greyOutCross();
             gameOver === true;
             playGrid.forEach(box => {
                 box.removeEventListener("click", roundAction);
@@ -176,21 +191,66 @@ const roundAction = function() { //Had to change this from an arrow function to 
 
     const showResetBtn = () => {
         resetBtn.disabled = false;
+        resetBtn.hidden = false;
         resetBtn.style.visibility = 'visible';
         resetBtn.addEventListener("click", resetGame);
     }
 
     const hideResetBtn = () => {
         resetBtn.disabled = true;
+        resetBtn.hidden = true;
         resetBtn.style.visibility = 'hidden';
     }
 
-   
+    const displaySplash = () => {
+        gameDisplay.hidden = true;
+        Splash.welcome();
+    }
+
+    const highlightCross = () => {
+        circleIndicator.style.backgroundColor ="white";
+        crossIndicator.style.backgroundColor = "#bfdbfe";
+    }
+
+    const highlightCircle = () => {
+        crossIndicator.style.backgroundColor = "white";
+        circleIndicator.style.backgroundColor = "#fecaca";
+    }
+
+    const greyOutCross = () => {
+        crossIndicator.style.backgroundColor = "#d1d5db";
+    }
+
+    const greyOutCircle = () => {
+        circleIndicator.style.backgroundColor = "#d1d5db";
+    }
 
     return {
         initGame
     };
 })();
 
-Game.initGame();
+const Splash = (() => { //module pattern - only one splash screen
+    let intro = document.getElementById("intro");
+    let playHuman = document.getElementById("play-human");
+    let playAI = document.getElementById("play-ai");
+
+    const welcome = () => {
+        intro.hidden = false;
+        playHuman.addEventListener("click", prepGame);
+    }
+
+    const prepGame = () => {
+        intro.hidden = true;
+        Game.initGame();
+    }
+
+    return {
+        welcome
+    };
+})();
+
+//Game.initGame();
+
+Splash.welcome();
 

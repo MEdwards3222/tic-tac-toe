@@ -55,6 +55,7 @@ h6 {
     justify-content: center;
     opacity: 1;
     grid-column: 2/3;
+    grid-row: 2/3;
 }
 
 #jumbo-intro {
@@ -189,18 +190,32 @@ h6 {
     padding-right: 2rem;
 }
 
-#circle-btn {
+/* #circle-btn {
     border: none;
 }
 
 #cross-btn {
     border: none;
+} */
+
+.cross-highlight {
+    background-color: #bfdbfe;
+}
+
+.circle-highlight {
+    background-color: #fecaca;
 }
 
 #text-content {
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 #reset-game {
 
+}
+
+#screen-options {
+    display: flex;
+    justify-content: space-around;
 }
