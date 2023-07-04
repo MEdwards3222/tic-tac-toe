@@ -73,20 +73,15 @@ const roundAction = function() { //Had to change this from an arrow function to 
    const x = +this.dataset.x;
    const y = +this.dataset.y;
 
-  /*  console.log("clicked!");
-   console.log(`${x}, ${y}`); */
-
-   
-
    if (isPlayerOneTurn()) { 
         Grid.setGridVal(x, y, "X");
-        this.textContent = "X";
+        this.innerHTML = '<i class="fa-solid fa-x fa-xl" style="color: #2b95ff;"></i>';
         let winSign = checkWin(Grid.getGrid());
         declareWinner(winSign);
         turn++;
     } else {
         Grid.setGridVal(x, y, "O");
-        this.textContent = "O";
+        this.innerHTML = '<i class="fa-solid fa-o fa-xl" style="color: #d50000;"></i>';
         let winSign = checkWin(Grid.getGrid());
         declareWinner(winSign);
         turn++;
