@@ -244,65 +244,82 @@ const roundAction = function() { //Had to change this from an arrow function to 
     const greyOutCircle = () => {
         circleIndicator.style.backgroundColor = "#d1d5db";
     }
-
-    const setPlayer2AI = () => {
-        player2.setAIStatus(true);
-    }
-
-    const unsetPlayer2AI = () => {
-        player2.setAIStatus(false);
-    }
     
     const AI = (() => {
 
-        /* let levelOfItelligence;
+        const getBestMove = (currentBoard) => {
+            let bestVal = +Infinity
+            let bestMove = [-1, -1];
 
-        const getLevel = () => {
-            console.log(levelOfItelligence);
-        }//just a test
+            for(let i = 0; i < 3; i++) {
+                for(let j = 0; j < 3; j++) 
+                {
+                    if (currentBoard[i][j] !== "X" && currentBoard !== "O") {
+                    let temp = currentBoard[i][j];
+                    currentBoard[i][j] = "O";
+                    let moveVal = minimax(currentBoard, 9-turn, true);
 
-        const setDifficulty = (level) => {
-            levelOfItelligence = level;
-        }
+                    currentBoard[i][j] = temp;
 
-        const minimaxValue = (state) => {
-
-        }
-
-        const takeAnEasyMove = (turn) => {
-
-        }
-
-        const takeAMediumMove = (turn) => {
-
-        }
-
-        const takeAHardMove = (turn) => {
-
-        }
-
-        this.notify = function(turn) {
-            switch(levelOfItelligence) {
-                case "easy": {
-                    takeAnEasyMove(turn);
-                    break;
-                }
-
-                case "medium": {
-                    takeAMediumMove(turn);
-                    break;
-                }
-
-                case "hard": {
-                    takeAHardMove(turn);
-                    break;
+                    if(moveVal < bestVal) {
+                            bestMove = [i, j];
+                            bestVal = moveVal;
+                        }
+                    }
                 }
             }
-        } */
 
-        const getBestMove = (currentBoard) => {
-            
+            return bestMove;
         };
+
+        const minimax = (currentBoard, depth, isMaximixingPlayer) => {
+            let winSymbol = checkWin(currentBoard);
+            if(depth === 0 | winSymbol === "X" | winSymbol === "O" | winSymbol === "tie") {
+                let gameOutcome = checkWin(currentBoard)
+                if (gameOutcome === "X") {
+                    return 10;
+                } else if (gameOutcome === "O") {
+                    return -10;
+                } else {
+                    return 0;
+                }
+            }
+
+            if (isMaximixingPlayer) {
+                let maxEval = -Infinity;
+                for(let i = 0; i < 3; i++) {
+                    for(let j = 0; j < 3; j++) {
+                        if (currentBoard[i][j] !== "X" & currentBoard[i][j] !== "O"){
+                            let temp = currentBoard[i][j];
+                            currentBoard[i][j] = temp;
+
+                            if (val > maxEval){
+                                maxEval = val;
+                            }
+                        }
+                    }
+                }
+                return maxEval;
+            } else {
+                let minEval = +Infinity;
+                for (let i = 0; i < 3; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        if (currentBoard[i][j] !== "X" & currentBoard[i][j] !== "O") {
+                            let temp = currentBoard[i][j];
+                            currentBoard[i][j] = "O"
+                            let val = minimax(currentBoard, depth-1, true);
+                            currentBoard[i][j] = temp;
+
+                            if(val < minEval){
+                                minEval = val;
+                            }
+                        }
+                    }
+                }
+
+                return minEval;
+            }
+        }
 
 
 
@@ -329,6 +346,7 @@ const Splash = (() => { //module pattern - only one splash screen
     const welcome = () => {
         intro.hidden = false;
         playHuman.addEventListener("click", prepGameHuman);
+        playAI.addEventListener("click", prepGameAI);
     }
 
     const prepGameHuman = () => {
@@ -339,12 +357,21 @@ const Splash = (() => { //module pattern - only one splash screen
         player1.setSign("X"); //Player 1 will always be X
         player2.setSign("O"); //Player 2 will always be O
 
+        player2.setAIStatus(false);
+
 
         Game.initGame(player1, player2);
     }
 
     const prepGameAI = () => {
+        intro.hidden = true;
+        player1 = Player(player1Name);
+        player2 = Player("AI");
 
+        player1.setSign("X"); //Player 1 will always be X
+        player2.setSign("O"); //Player 2 will always be O
+
+        player2.setAIStatus(true);
     }
 
     return {
