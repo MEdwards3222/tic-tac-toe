@@ -25,6 +25,7 @@ const Grid = (() => {   //module pattern - only one grid
 const Player = (name) => { //factory function - multiple players
 
     let sign = "";
+    let isAI = false;
     const setSign = (reqSign) => {
         sign = reqSign;
         return sign;
@@ -34,7 +35,11 @@ const Player = (name) => { //factory function - multiple players
 
     const getName = () => {return name;}
 
-    return {setSign, getSign, getName};
+    const getAIStatus = () => {return isAI;}
+
+    const setAIStatus = (status) => {isAI = status;}
+
+    return {setSign, setAIStatus, getSign, getName, getAIStatus};
 }
 
 const Game = (() => { //module pattern - only one grid
@@ -55,15 +60,14 @@ const Game = (() => { //module pattern - only one grid
     let circleIndicator = document.getElementById("card-body-circle");
 
     
-    const initGame = () => {
+    const initGame = (p1, p2) => {
         gameDisplay.hidden = false;
 
+        player1 = p1;
+        player2 = p2; 
 
-        player1 = Player(player1Name);
-        player2 = Player(player2Name);
-
-        player1.setSign("X"); //Player 1 will always be X
-        player2.setSign("O"); //Player 2 will always be O
+       /*  player1.setSign("X"); //Player 1 will always be X
+        player2.setSign("O"); //Player 2 will always be O */
         
         playGrid.forEach(box => {
              box.addEventListener("click", roundAction);
@@ -179,7 +183,13 @@ const roundAction = function() { //Had to change this from an arrow function to 
         Grid.resetGrid();
         clearGrid();
         textBox.textContent = "Player 1's turn."
-        initGame();
+        //initGame();
+        
+        if(player2.getAIStatus() === false) {
+            Splash.prepGameHuman();
+        } else if (player2.getAIStatus() === true) {
+            Splash.prepGameAI();
+        } else console.log(`uh oh - ${player2.getAIStatus()}`);
     }
 
     const reinitGame = () => {
@@ -235,6 +245,73 @@ const roundAction = function() { //Had to change this from an arrow function to 
         circleIndicator.style.backgroundColor = "#d1d5db";
     }
 
+    const setPlayer2AI = () => {
+        player2.setAIStatus(true);
+    }
+
+    const unsetPlayer2AI = () => {
+        player2.setAIStatus(false);
+    }
+    
+    const AI = (() => {
+
+        /* let levelOfItelligence;
+
+        const getLevel = () => {
+            console.log(levelOfItelligence);
+        }//just a test
+
+        const setDifficulty = (level) => {
+            levelOfItelligence = level;
+        }
+
+        const minimaxValue = (state) => {
+
+        }
+
+        const takeAnEasyMove = (turn) => {
+
+        }
+
+        const takeAMediumMove = (turn) => {
+
+        }
+
+        const takeAHardMove = (turn) => {
+
+        }
+
+        this.notify = function(turn) {
+            switch(levelOfItelligence) {
+                case "easy": {
+                    takeAnEasyMove(turn);
+                    break;
+                }
+
+                case "medium": {
+                    takeAMediumMove(turn);
+                    break;
+                }
+
+                case "hard": {
+                    takeAHardMove(turn);
+                    break;
+                }
+            }
+        } */
+
+        const getBestMove = (currentBoard) => {
+            
+        };
+
+
+
+        return {
+        
+        };
+
+    })(); //Module pattern within a module pattern - this is to organize code for the AI
+  
     return {
         initGame
     };
@@ -244,19 +321,36 @@ const Splash = (() => { //module pattern - only one splash screen
     let intro = document.getElementById("intro");
     let playHuman = document.getElementById("play-human");
     let playAI = document.getElementById("play-ai");
+    let player1;
+    let player2;
+    let player1Name = "Player 1";
+    let player2Name = "Player 2";
 
     const welcome = () => {
         intro.hidden = false;
-        playHuman.addEventListener("click", prepGame);
+        playHuman.addEventListener("click", prepGameHuman);
     }
 
-    const prepGame = () => {
+    const prepGameHuman = () => {
         intro.hidden = true;
-        Game.initGame();
+        player1 = Player(player1Name);
+        player2 = Player(player2Name);
+
+        player1.setSign("X"); //Player 1 will always be X
+        player2.setSign("O"); //Player 2 will always be O
+
+
+        Game.initGame(player1, player2);
+    }
+
+    const prepGameAI = () => {
+
     }
 
     return {
-        welcome
+        welcome,
+        prepGameHuman,
+        prepGameAI
     };
 })();
 
