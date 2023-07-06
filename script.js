@@ -83,13 +83,31 @@ const Game = (() => { //module pattern - only one grid
 const roundAction = function() { //Had to change this from an arrow function to an anon function to retain "this" object
    const x = +this.dataset.x;
    const y = +this.dataset.y;
+   console.log(`Player 2 AI status: ${player2.getAIStatus()}`);
 
    if (isPlayerOneTurn()) { 
         Grid.setGridVal(x, y, "X");
         this.innerHTML = '<i class="fa-solid fa-x fa-xl" style="color: #2b95ff;"></i>';
         let winSign = checkWin(Grid.getGrid());
         declareWinner(winSign);
+
+        if(player2.getAIStatus() === true & turn < 9 & gameOver === false) {
+            console.log("AI is thinking...");
+            let arr = AI.getBestMove(Grid.getGrid())
+            Grid.setGridVal(arr[0],arr[1],"O");
+            playGrid.forEach(box => {
+                if(+box.dataset.x === arr[0] & +box.dataset.y === arr[1]){
+                    box.innerHTML = '<i class="fa-solid fa-o fa-xl" style="color: #d50000;"></i>';
+                    let winSign = checkWin(Grid.getGrid());
+                    declareWinner(winSign);
+                    turn++;
+                }
+            });
+            
+        }
         turn++;
+        console.log(`Turn number: ${turn}`);
+
     } else {
         Grid.setGridVal(x, y, "O");
         this.innerHTML = '<i class="fa-solid fa-o fa-xl" style="color: #d50000;"></i>';
@@ -100,7 +118,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
 } 
 
     const isPlayerOneTurn = () => {
-        if (turn % 2 === 1) {
+        if (turn % 2 === 1 & player2.getAIStatus() === false) {
             console.log(`Turn number: ${turn}`);
             highlightCircle();
             textBox.textContent = "Player 2's turn.";
@@ -130,8 +148,20 @@ const roundAction = function() { //Had to change this from an arrow function to 
         }
 
         if(turn === 9 & gameOver === false) {
-            return "tie"
-        } 
+            return "tie";
+        } else {
+            let count = 0;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++){
+                    if (gridLayout[i][j] === "X" | gridLayout[i][j] === "O") {
+                        count++;
+                    }
+                }
+            }
+            if(count === 9){
+                return "tie";
+            }
+        }
     }
 
     const declareWinner = (sign) => {
@@ -254,7 +284,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
             for(let i = 0; i < 3; i++) {
                 for(let j = 0; j < 3; j++) 
                 {
-                    if (currentBoard[i][j] !== "X" && currentBoard !== "O") {
+                    if (currentBoard[i][j] !== "X" & currentBoard[i][j] !== "O") {
                     let temp = currentBoard[i][j];
                     currentBoard[i][j] = "O";
                     let moveVal = minimax(currentBoard, 9-turn, true);
@@ -291,6 +321,8 @@ const roundAction = function() { //Had to change this from an arrow function to 
                     for(let j = 0; j < 3; j++) {
                         if (currentBoard[i][j] !== "X" & currentBoard[i][j] !== "O"){
                             let temp = currentBoard[i][j];
+                            currentBoard[i][j] = "X";
+                            let val = minimax(currentBoard, depth-1, false);
                             currentBoard[i][j] = temp;
 
                             if (val > maxEval){
@@ -324,7 +356,7 @@ const roundAction = function() { //Had to change this from an arrow function to 
 
 
         return {
-        
+            getBestMove
         };
 
     })(); //Module pattern within a module pattern - this is to organize code for the AI
@@ -372,6 +404,8 @@ const Splash = (() => { //module pattern - only one splash screen
         player2.setSign("O"); //Player 2 will always be O
 
         player2.setAIStatus(true);
+
+        Game.initGame(player1, player2);
     }
 
     return {
